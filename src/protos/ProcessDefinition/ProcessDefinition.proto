@@ -1,0 +1,87 @@
+package com.npu.GarageDoor.proto;
+
+//流程定义
+message ProcessDefinition{
+	//模板名称
+	required bool IsTemplate = 1;
+	required string TempleteName = 2;
+	repeated ProcessDefItem DefItems = 3;
+}
+
+//参数配置项
+message ProcessDefItem{
+	required string Name = 1;
+	required string Value = 2;
+}
+
+message ProcessDefResp{
+	required bool success = 1;
+	optional uint32 error_code = 2;
+	optional string camera_id = 3;
+	optional string garage_id = 4;
+}
+
+//车库门配置示例
+//ProcessDefinition{
+//	TempleteName = "GarageDoor";
+//	//流程定义名称
+//	ProcessDefItem{
+//		Name = "GarageDoorName";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//
+//	//摄像设备id
+//	ProcessDefItem{
+//		Name = "cameraDeviceId";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//
+//	//车库门设备id
+//	ProcessDefItem{
+//		Name = "garageDeviceId";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//
+//	//手机设备id
+//	ProcessDefItem{
+//		Name = "phoneDeviceId";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//接受车牌信息topic
+//	ProcessDefItem{
+//		Name = "cameraReceiveTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//发送车门状态查询命令topic
+//	ProcessDefItem{
+//		Name = "garageSendTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//接受车门状态信息topic
+//	ProcessDefItem{
+//		Name = "garageReceiveTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//发送手机确认topic
+//	ProcessDefItem{
+//		Name = "phoneSendTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//接受首届确认topic
+//	ProcessDefItem{
+//		Name = "phoneReceiveTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//	
+//	//发送开门命令topic
+//	ProcessDefItem{
+//		Name = "garegeSendTopic";
+//		Value = "XXXXXXXXXXXXX";
+//	}
+//
+//}

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>欢迎登录</title>
+  <!-- <link rel="stylesheet" type="text/css" href="webpages/css/main.css" /> -->
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    body {
+      padding-top: 50px;
+    }
+    .content{
+      padding: 20px;
+    }
+    .side{
+      background: #EEEEEE;
+    }
+    .mag-x{
+      margin: 0 5px
+    }
+    .tab-center tr td{
+      vertical-align: middle;
+      text-align: center;
+    }
+    .tab-center tr th{
+      vertical-align: middle;
+      text-align: center;
+    }
+  </style>
+</head>
+<body onload="onload()">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">流程引擎平台——用户控制中心</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">设置</a></li>
+          <li><a href="#">帮助</a></li>
+          <li><a href="#">退出</a></li>
+        </ul>
+        <!-- <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form> -->
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-1 col-sm-1 col-md-1 side">
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2 content"><div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">功能列表</h3>
+        </div>
+        <div class="panel-body">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            添加流程定义
+          </button>
+        </div>
+      </div></div>
+      <div class="col-xs-8 col-sm-8 col-md-8 table-responsive content"> 
+        <h1>已部署的流程</h1>
+        <hr />
+        <table id="procTab" class="table table-bordered table-hover tab-center">
+          <thead>
+            <tr class="success">
+              <th>序号</th>
+              <th>Process Id</th>
+              <th>Process Name</th>
+              <th>Process File</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          <!-- <tr class="warning">
+            <td colspan="6">尚未部署任何流程</td>
+          </tr>
+            <tr>
+              <td>1</td>
+              <td>process1</td>
+              <td>process test</td>
+              <td>process.bpmn.xml</td>
+              <td>description</td>
+              <td><a href="#" class="btn btn-success btn-sm mag-x">更新</a><a href="#" class="btn btn-danger btn-sm mag-x">删除</a></td>
+            </tr> -->
+          </tbody>
+        </table>
+
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 side"></div>
+    </div>
+  </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">选择流程定义文件</h4>
+        </div>
+        <div class="modal-body">
+          <input type="file" id="procFile" name="procFile" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button id="modelCfm" type="button" class="btn btn-primary" data-complete-text="已上传" data-loading-text="正在上传...">上传</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script type="text/javascript">
+  var procIdCount = 0
+  function onload(){
+    //alert("ok")
+    loadProcTable(); 
+  }
+  function getCookie(c_name){
+　　　　if (document.cookie.length>0){　　//先查询cookie是否为空，为空就return ""
+　　　　　　c_start=document.cookie.indexOf(c_name + "=")　　//通过String对象的indexOf()来检查这个cookie是否存在，不存在就为 -1　　
+　　　　　　if (c_start!=-1){ 
+　　　　　　　　c_start=c_start + c_name.length+1　　//最后这个+1其实就是表示"="号啦，这样就获取到了cookie值的开始位置
+　　　　　　　　c_end=document.cookie.indexOf(";",c_start)　　//其实我刚看见indexOf()第二个参数的时候猛然有点晕，后来想起来表示指定的开始索引的位置...这句是为了得到值的结束位置。因为需要考虑是否是最后一项，所以通过";"号是否存在来判断
+　　　　　　　　if (c_end==-1) c_end=document.cookie.length　　
+　　　　　　　　return unescape(document.cookie.substring(c_start,c_end))　　//通过substring()得到了值。想了解unescape()得先知道escape()是做什么的，都是很重要的基础，想了解的可以搜索下，在文章结尾处也会进行讲解cookie编码细节
+　　　　　　} 
+　　　　}
+　　　　return ""
+　　}
+
+function loadProcTable(){
+  procIdCount = 0
+  $("#procTab tr:not(:first)").remove();
+  var datas = { cmd : "query", userId : "me" };
+  $.post("/pannel",datas,function(rstData){
+    var rst = $.parseJSON(rstData)
+    if (rst.statusCode == 0){
+      var str = ''
+      if (rst.list.length>0){
+        $.each(rst.list, function(index, val) {
+          /* iterate through array or object */
+          procIdCount++
+          //alert(val)
+          str = str.concat('<tr><td>'+(index+1)+'</td><td>').concat(val.Key).concat('</td><td>').concat(val.ProcName).concat('</td><td>').concat(val.ProcFile).concat('</td><td>').concat('<a href="javascript:updateProcess(\''+val.Key+'\')" class="btn btn-success btn-sm mag-x">更新</a><a href="javascript:deleteProcess(\''+val.Key+'\')" class="btn btn-danger btn-sm mag-x">删除</a></td></tr>');
+          $("#procTab tr:last").after(str);
+        });
+      }else{
+        str = str.concat('<tr class="warning"><td colspan="5">尚未部署任何流程</td></tr>');
+        $("#procTab tr:last").after(str);
+      }
+    }else{
+      alert(rst.reason)
+    }
+  }).error(function(){
+    alert("error");
+  });
+}
+function updateProcess(key){
+  alert("update process : "+key)
+}
+function deleteProcess(key){
+  alert("delete process : "+key)
+    //var data = "{'procKey':'"+key+"'}"
+    var datas = { cmd : "delete",procKey : key };
+    var jqxhr = $.post("/pannel", datas,function(rstData) {
+      var rst = $.parseJSON(rstData)
+      if (rst.statusCode == 0){
+        alert("delete successfully")
+        loadProcTable()
+      }else{
+        alert(rst.reason)
+      }
+    })
+    .error(function() { alert("error"); })
+  }
+  // upload file
+  $('#modelCfm').on('click', function () {
+    var $btn = $(this).button('loading')
+    // business logic...
+    uploadFileCall()
+  })
+  function  uploadFileCall(){
+   var fileAdd = $("#procFile").prop('files')//document.getElementById("procFile").files[0];
+   if (fileAdd.length==0){
+    alert("请选择文件")
+    $('#modelCfm').button('reset')
+  }else{
+    // tell server
+    // var datas = { cmd : "uploadFile", fileName : fileAdd[0].name };
+    // $.post("/pannel",datas,function(rstData){
+    //   alert("ok");
+    // });
+    uploadFile(fileAdd[0],"120.76.41.114", "procFile", function(){
+      alert("已成功上传")
+      $('#modelCfm').button('reset')
+      $('#myModal').modal('hide')
+      var finput = $("#procFile")
+      finput.after(finput.clone().val(""));
+      finput.remove();
+      
+    });
+  }
+
+}
+function uploadFile(file, ipAddr, topic, callback){
+
+  var fSize = file.size;
+
+    var shardSize = 64*1024;    //以64KB为一个分片
+    var shardCount = Math.ceil(fSize / shardSize);  //总片数
+
+    //var url = "http://120.76.41.114:4151/put?topic=hellojs";
+    var url = "http://" + ipAddr + ":4151/put?topic=" + topic;
+    var i = 0;
+    continueRead();
+    function onloadCall(resultArray){
+      console.log("onload:"+i);
+      var fShard = {
+        "userId":getCookie('userId'),
+        "fileId":file.name,
+        "fileName":file.name,
+        "fileSize":fSize,
+        "shardCount":shardCount,
+        "shardSize": shardSize,
+        "shardIndex": i
+      };
+
+      fShard['content'] = Array.apply(null, resultArray);
+
+        //console.log(fShard);
+        var jObj = JSON.stringify(fShard);
+
+        $.post(url, jObj, function(){});
+
+        console.log("onload complete");
+        i++;
+        continueRead();
+      }
+      function continueRead(){
+        console.log("---for---");
+        //计算每一片的起始与结束位置
+        var start = i * shardSize,
+        end = Math.min(fSize, start + shardSize),
+            data = file.slice(start, end);  //slice方法用于切出文件的一部分
+            if(i >= shardCount){
+            //在这写文件传输完成后的处理
+            console.log("i > shardCount, Close!");
+            callback();
+            return;
+          }
+
+          var reader = new FileReader();
+          reader.readAsArrayBuffer(data);
+          reader.onload = function (e) {
+            onloadCall(new Uint8Array(this.result));
+          };
+        }
+
+      }
+
+    </script>
+    <noscript>Your browser does not support JavaScript!</noscript>
+    <!--<script type="text/javascript" src="webpages/js/uploadFile.js" ></script>-->
+    </html>

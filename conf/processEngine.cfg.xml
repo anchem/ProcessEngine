@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+<!-- database -->
+	<property name="dbType" value="mysql"/>
+	<property name="username" value="root"/>
+	<property name="password" value="nwpu543"/>
+	<property name="dbName" value="proc_engine"/>
+	<property name="dbAddress" value="127.0.0.1:3306"/>
+<!-- msg -->
+	<property name="msgAddress" value="nats://120.76.41.114:4222"/>
+
+<!-- task database -->
+	<property name="TdbType" value="mysql"/>
+	<property name="TdbAddr" value="127.0.0.1:3306"/>
+	<property name="TdbUsername" value="root"/>
+	<property name="TdbPassword" value="nwpu543"/>
+	<property name="TdbName" value="task_scheduler"/>
+	
+<!-- event database -->
+	<property name="EdbType" value="mysql"/>
+	<property name="EdbAddr" value="127.0.0.1:3306"/>
+	<property name="EdbUsername" value="root"/>
+	<property name="EdbPassword" value="nwpu543"/>
+	<property name="EdbName" value="event_bus"/>
+	<property name="logMsgAddress" value="120.76.41.114:4222"/>
+	
+<!-- fileupload -->
+	<property name="fileNats" value="120.76.41.114:4222"/>
+	<property name="fileRcvTopic" value="filetrans"/>
+
+</Configuration>
